@@ -1,3 +1,7 @@
+#Mission 001 | Boot Camp
+#Autor | Robert Treharne
+#Date | 24 Dec 2015
+
 #pylab combines pyplot with numpy into a single namespace. This is convenient for interactive work, but for programming it is recommended that the namespaces be kept separate
 
 import numpy as np
