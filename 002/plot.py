@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 #Mission 002 | Lock and Load
 #Autor | Robert Treharne
 #Date | 25 Dec 2015
