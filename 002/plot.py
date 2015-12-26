@@ -29,7 +29,7 @@ def plot_file(path, delim=','):
     #transpose data into columns
     data = [[float(y) for y in x] for x in np.transpose(data)]
 
-    #create plot
+   #create plot
     plot = plt.plot(data[0], data[1], '-o')
 
     #if file has headers use these as label axes
