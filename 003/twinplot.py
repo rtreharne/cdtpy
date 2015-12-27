@@ -6,9 +6,12 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import sys
 import csv
 import os
+
+mpl.rcParams['axes.labelsize'] = 'x-large'
 
 def get_data(reader):
     data = []
@@ -36,19 +39,18 @@ def plot_file(path, delim=','):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.set_xlim([min(data[0]),max(data[0])])
-    ln1 = ax.plot(data[0], data[1], label=header_text[1])
+    ln1 = ax.plot(data[0], data[1], color='blue', label=header_text[1])
 
     ax2 = ax.twinx()
     ax2.set_xlim([min(data[0]),max(data[0])])
-    ln1 = ax.plot(data[0], data[1], label=header_text[1])
-    ln2 = ax2.plot(data[0], data[2], label=header_text[2])
+    ln2 = ax2.plot(data[0], data[2], color='red', label=header_text[2])
    #create plot
 
     #if file has headers use these as label axes
     if header:
         ax.set_xlabel(header_text[0])
-        ax.set_ylabel(header_text[1])
-        ax2.set_ylabel(header_text[2])
+        ax.set_ylabel(header_text[1], color='blue')
+        ax2.set_ylabel(header_text[2], color='red')
 
     return fig 
 
