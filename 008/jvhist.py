@@ -29,6 +29,8 @@ def hist(dir):
     ax.set_title('Histogram | Efficiency of {0} cells'.format(len(cells)))
     ax.set_xlabel('Efficiency (%)')
     ax.set_ylabel('Number of Cells')
+    text = 'Mean Efficiency = {0:.2f} +/- {1:.2f} %'.format(np.mean(effs), np.std(effs))
+    ax.annotate(text, xy=(0.02, 0.95), xycoords='axes fraction', size=15)
 
     return fig
     

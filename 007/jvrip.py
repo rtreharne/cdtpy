@@ -7,6 +7,9 @@ import numpy as np
 import os
 import sys
 import csv
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+mpl.rcParams['axes.labelsize'] = 'x-large'
 
 def jvrip(fname):
     '''Extract cell parameters from .csv/.txt. file'''
@@ -45,11 +48,25 @@ def params(d, area=0.25):
     
     #Eff
     Eff = jsc*voc*FF
-    
-    return {'jsc': jsc,
-            'voc': voc,
-            'FF': FF,
-            'Eff': Eff} 
+
+    p = {'jsc': jsc,
+         'voc': voc,
+         'FF': FF,
+         'Eff': Eff} 
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.plot(xi, yi, '-', color='red')
+    ylim = [0, max(yi)*1.1]
+    xlim = [0, p.get('voc')*1.1]
+    ax.set_ylim(ylim)
+    ax.set_xlim(xlim)
+    ax.set_xlabel('$V$, volts')
+    ax.set_ylabel('$J$, mA.cm$^2$')
+    text = 'Eff: {0:.2f} %\nJsc: {1:.2f} ma/cm^2\nVoc: {2:.2f} V\nFF: {3:.2f} %'.format(p.get('Eff'), p.get('jsc'), p.get('voc'), p.get('FF')*100)
+    ax.annotate(text, xy=(0.05, 0.4), xycoords='axes fraction', size=15)
+
+    return p, fig
 
 def get_data(reader):
     data = []
@@ -83,6 +100,7 @@ def data_dict(path, delim=','):
     return {'headers': header_text, 'data': data}
 
 if __name__ == "__main__":
-    
-    print jvrip(sys.argv[1])
+    p, fig = jvrip(sys.argv[1])
+    print p
+    plt.show(fig)
 

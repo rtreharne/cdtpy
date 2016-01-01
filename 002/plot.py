@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 import sys
 import csv
 import os
+import matplotlib as mpl
+
+mpl.rcParams['axes.labelsize'] = 'x-large'
 
 def plot_file(path, delim=','):
     abspath = os.path.abspath(path) #get absolute path

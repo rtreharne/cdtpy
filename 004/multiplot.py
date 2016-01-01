@@ -52,6 +52,8 @@ def multiplot(files, param='::'):
         if len(data) == 2:
             l, = ax.plot(data[0], data[1], label = fname)
             ax.legend(loc=4)
+            ax.set_xlabel('$\lambda$ $(nm)$')
+            ax.set_ylabel('Transmittance, $T$')
 
     return fig
 
