@@ -1,0 +1,3 @@
+[submodule "freestyle"]
+	path = freestyle
+	url = https://github.com/rtreharne/freestyle.git/
