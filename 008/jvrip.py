@@ -66,7 +66,7 @@ def data_dict(path, delim=','):
        from a .csv or .txt file'''
 
     abspath = os.path.abspath(path) #get absolute path
-    f = open(abspath, 'rb') #open file for reading
+    f = open(abspath, 'r') #open file for reading
     header = csv.Sniffer().has_header(f.read(1024)) #check for headers
     f.seek(0) #return to start of file
     reader = csv.reader(f, delimiter=delim)
@@ -84,5 +84,5 @@ def data_dict(path, delim=','):
 
 if __name__ == "__main__":
     
-    print jvrip(sys.argv[1])
+    print(jvrip(sys.argv[1]))
 
