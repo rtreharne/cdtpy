@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #Mission 008 | ... And the Rest Is Histograms
 #Autor | Robert Treharne
@@ -95,19 +95,20 @@ def data_dict(path, delim=','):
     '''This method creates a dictionary of data
        from a .csv or .txt file'''
 
+    sniffer = csv.Sniffer()
     abspath = os.path.abspath(path) #get absolute path
-    f = open(abspath, 'rb') #open file for reading
-    header = csv.Sniffer().has_header(f.read(1024)) #check for headers
-    f.seek(0) #return to start of file
-    reader = csv.reader(f, delimiter=delim)
-    
-    if header:
-        #get header text
-        header_text = reader.next()
-    else:
-        header_text = None
+    with open(abspath, 'r') as f:
+        header = sniffer.has_header(f.read(1024)) #check for headers
+        f.seek(0) #return to start of file
+        reader = csv.reader(f, delimiter=delim)
         
-    data = get_data(reader)
+        if header:
+            #get header text
+            header_text = next(reader)
+        else:
+            header_text = None
+            
+        data = get_data(reader)
 
     #return as dictionary
     return {'headers': header_text, 'data': data}
