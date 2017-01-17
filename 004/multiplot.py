@@ -1,8 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #Mission 004 | Splitsville | Objective 2: Multiplot
 #Autor | Robert Treharne
 #Date | 28 Dec 2015
+
+#Example usage: $python3 <folder> <list range e.g. ::12>
 
 import numpy as np
 import matplotlib.pyplot as plt
