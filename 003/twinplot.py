@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #Mission 003 | Double Trouble
 #Autor | Robert Treharne
@@ -25,32 +25,33 @@ def get_data(reader):
 
 def plot_file(path, delim=','):
     abspath = os.path.abspath(path) #get absolute path
-    f = open(abspath, 'rb') #open file for reading
-    header = csv.Sniffer().has_header(f.read(1024)) #check for headers
-    f.seek(0) #return to start of file
-    reader = csv.reader(f, delimiter=delim)
-    
-    if header:
-        #get header text
-        header_text = reader.next()
 
-    data = get_data(reader)
+    sniffer = csv.Sniffer()
+    with open(abspath, 'r') as f:
+        has_header = sniffer.has_header(f.read(1024))
+        f.seek(0)
+        reader = csv.reader(f, delimiter=delim)
+        
+        if has_header:
+            #get header text
+            header_text = next(reader)
+        data = get_data(reader)
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.set_xlim([min(data[0]),max(data[0])])
-    ln1 = ax.plot(data[0], data[1], color='blue', label=header_text[1])
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.set_xlim([min(data[0]),max(data[0])])
+        ln1 = ax.plot(data[0], data[1], color='blue', label=header_text[1])
 
-    ax2 = ax.twinx()
-    ax2.set_xlim([min(data[0]),max(data[0])])
-    ln2 = ax2.plot(data[0], data[2], color='red', label=header_text[2])
-   #create plot
+        ax2 = ax.twinx()
+        ax2.set_xlim([min(data[0]),max(data[0])])
+        ln2 = ax2.plot(data[0], data[2], color='red', label=header_text[2])
+       #create plot
 
-    #if file has headers use these as label axes
-    if header:
-        ax.set_xlabel(header_text[0])
-        ax.set_ylabel(header_text[1], color='blue')
-        ax2.set_ylabel(header_text[2], color='red')
+        #if file has headers use these as label axes
+        if has_header:
+            ax.set_xlabel(header_text[0])
+            ax.set_ylabel(header_text[1], color='blue')
+            ax2.set_ylabel(header_text[2], color='red')
 
     return fig 
 
