@@ -65,18 +65,20 @@ def data_dict(path, delim=','):
        from a .csv file'''
 
     abspath = os.path.abspath(path) #get absolute path
-    f = open(abspath, 'rb') #open file for reading
-    header = csv.Sniffer().has_header(f.read(1024)) #check for headers
-    f.seek(0) #return to start of file
-    reader = csv.reader(f, delimiter=delim)
-    
-    if header:
-        #get header text
-        header_text = reader.next()
-    else:
-        header_text = None
+
+    sniffer = csv.Sniffer()
+    with open(abspath, 'r') as f:
+        header = csv.Sniffer().has_header(f.read(1024)) #check for headers
+        f.seek(0) #return to start of file
+        reader = csv.reader(f, delimiter=delim)
         
-    data = get_data(reader)
+        if header:
+            #get header text
+            header_text = reader.next()
+        else:
+            header_text = None
+            
+        data = get_data(reader)
 
     #return as dictionary
     return {'headers': header_text, 'data': data}
@@ -84,7 +86,7 @@ def data_dict(path, delim=','):
 if __name__ == "__main__":
     d = data_dict(sys.argv[1])
     options, remainder = getopt.getopt(sys.argv[2:], 'o:', ['option='])
-    print 'OPTIONS  :', options
+    print('OPTIONS  :', options)
     contour_type = 'bw'
     for opt, arg in options:
         if opt in ('-o', '--option'):
