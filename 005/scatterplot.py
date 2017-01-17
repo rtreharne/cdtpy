@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #Mission 005 | Scatterbrain
 #Autor | Robert Treharne
@@ -27,17 +27,20 @@ def data_dict(path, delim=','):
     '''This method creates a dictionary of data
        from a .csv file'''
 
-    abspath = os.path.abspath(path) #get absolute path
-    f = open(abspath, 'rb') #open file for reading
-    header = csv.Sniffer().has_header(f.read(1024)) #check for headers
-    f.seek(0) #return to start of file
-    reader = csv.reader(f, delimiter=delim)
-    
-    if header:
-        #get header text
-        header_text = reader.next()
+    sniffer = csv.Sniffer()
+
+    abspath = os.path.abspath(path)
+
+    with open(abspath, 'r') as f:
+        has_header = sniffer.has_header(f.read(1024))
+        f.seek(0) #return to start of file
+        reader = csv.reader(f, delimiter=delim)
         
-    data = get_data(reader)
+        if has_header:
+            #get header text
+            header_text = next(reader)
+            
+        data = get_data(reader)
 
     #return as dictionary
     return {'headers': header_text, 'data': data}
